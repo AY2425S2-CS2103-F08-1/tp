@@ -42,7 +42,8 @@
       "title": "Developer Guide",
       "headings": {
         "user-stories": "User stories",
-        "use-cases": "Use cases"
+        "use-cases": "Use cases",
+        "non-functional-requirements": "Non-Functional Requirements"
       },
       "headingKeywords": {}
     },
