@@ -28,4 +28,15 @@ public class RemarkTest {
         Remark differentRemark = new Remark("Bye");
         assertFalse(remark.equals(differentRemark));
     }
+
+    @Test
+    public void hashCodeMethod() {
+        Remark remark1 = new Remark("Hello");
+        Remark remark2 = new Remark("Hello");
+        Remark remark3 = new Remark("Different");
+
+        assertTrue(remark1.hashCode() == remark2.hashCode());
+        assertFalse(remark1.hashCode() == remark3.hashCode());
+    }
 }
+
