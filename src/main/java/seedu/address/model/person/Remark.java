@@ -10,9 +10,10 @@ public class Remark {
     public final String value;
 
     /**
-     * Constructs a {@code Remark} object with the given remark string.
+     * Constructs a {@code Remark} object.
      *
-     * @param remark A valid remark string. It cannot be null.
+     * @param remark A valid remark string.
+     * @throws NullPointerException if the remark is null.
      */
     public Remark(String remark) {
         requireNonNull(remark);

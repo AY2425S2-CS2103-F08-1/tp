@@ -11,34 +11,27 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Remark;
 
 /**
- * Parses input arguments and creates a new {@code RemarkCommand} object.
+ * Parses input arguments and creates a new {@code RemarkCommand} object
  */
-public class RemarkCommandParser implements Parser {
-
+public class RemarkCommandParser implements Parser<RemarkCommand> {
     /**
-     * Parses the given {@code String} of arguments and returns a {@code RemarkCommand} object for execution.
-     *
-     * @param args The user input arguments.
-     * @return A {@code RemarkCommand} containing the parsed index and remark.
-     * @throws ParseException If the user input does not conform to the expected format.
+     * Parses the given {@code String} of arguments in the context of the {@code RemarkCommand}
+     * and returns a {@code RemarkCommand} object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public RemarkCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_REMARK);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REMARK);
 
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RemarkCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE), ive);
         }
 
-        Remark remark = new Remark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
 
-        return new RemarkCommand(index, remark);
+        return new RemarkCommand(index, new Remark(remark));
     }
-
-
 }
