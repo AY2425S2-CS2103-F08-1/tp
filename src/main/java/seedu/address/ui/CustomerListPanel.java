@@ -36,7 +36,6 @@ public class CustomerListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Customer customer, boolean empty) {
             super.updateItem(customer, empty);
-
             if (empty || customer == null) {
                 setGraphic(null);
                 setText(null);
