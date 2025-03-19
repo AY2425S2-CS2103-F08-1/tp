@@ -99,7 +99,7 @@
         "listing-all-customers-list": "Listing all customers : list",
         "editing-a-reservation-edit": "Editing a reservation : edit",
         "locating-customers-by-name-find": "Locating customers by name: find",
-        "deleting-a-customer-delete": "Deleting a customer : delete",
+        "deleting-a-reservation-delete": "Deleting a reservation : delete",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",
         "saving-the-data": "Saving the data",
