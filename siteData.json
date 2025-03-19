@@ -97,7 +97,7 @@
         "displaying-commands-help": "Displaying commands : help",
         "showing-reservation-s-details-show": "Showing reservation's details : show",
         "adding-a-reservation-add": "Adding a reservation: add",
-        "listing-all-customers-list": "Listing all customers : list",
+        "listing-all-reservations-list": "Listing all reservations : list",
         "editing-a-reservation-edit": "Editing a reservation : edit",
         "locating-customers-by-name-find": "Locating customers by name: find",
         "deleting-a-reservation-delete": "Deleting a reservation : delete",
