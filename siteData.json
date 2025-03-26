@@ -102,6 +102,7 @@
         "locating-reservations-by-name-find": "Locating reservations by name: find",
         "deleting-a-reservation-delete": "Deleting a reservation : delete",
         "clearing-all-entries-clear": "Clearing all entries : clear",
+        "filtering-the-reservations-filter": "Filtering the reservations: filter",
         "exiting-the-program-exit": "Exiting the program : exit",
         "saving-the-data": "Saving the data",
         "editing-the-data-file": "Editing the data file",
