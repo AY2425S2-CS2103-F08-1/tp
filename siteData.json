@@ -41,8 +41,12 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "developer-guide": "Developer Guide",
+        "reservemate-developer-guide": "ReserveMate Developer Guide",
         "table-of-contents": "Table of Contents",
+        "acknowledgements": "Acknowledgements",
+        "setting-up-and-getting-started": "Setting up and getting started",
+        "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
+        "appendix-requirements": "Appendix: Requirements",
         "user-stories": "User stories",
         "use-cases": "Use cases",
         "non-functional-requirements": "Non-Functional Requirements",
