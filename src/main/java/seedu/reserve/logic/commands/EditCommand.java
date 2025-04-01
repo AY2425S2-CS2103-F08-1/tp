@@ -98,9 +98,10 @@ public class EditCommand extends Command {
 
         Reservation reservationToEdit = lastShownList.get(index.getZeroBased());
         Reservation editedReservation = createEditedReservation(reservationToEdit, editReservationDescriptor);
-
+        String out = "";
         if (isDateTimeBeforeCurrentTime(reservationToEdit.getDateTime())) {
-            throw new CommandException(MESSAGE_FUTURE_RESERVATION_REQUIRED);
+//            throw new CommandException(MESSAGE_FUTURE_RESERVATION_REQUIRED);
+            out = "Warning, you had edited a past reservation!!!\n";
         }
 
         if (!reservationToEdit.isSameReservation(editedReservation) && model.hasReservation(editedReservation)) {
@@ -110,7 +111,7 @@ public class EditCommand extends Command {
 
         model.setReservation(reservationToEdit, editedReservation);
         model.updateFilteredReservationList(PREDICATE_SHOW_ALL_RESERVATIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_RESERVATION_SUCCESS, Messages.format(editedReservation)));
+        return new CommandResult(out + String.format(MESSAGE_EDIT_RESERVATION_SUCCESS, Messages.format(editedReservation)));
     }
 
     /**
