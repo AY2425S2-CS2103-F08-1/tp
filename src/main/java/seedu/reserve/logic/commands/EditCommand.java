@@ -59,10 +59,13 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_RESERVATION_SUCCESS = "Edited Reservation:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_FUTURE_RESERVATION_REQUIRED = "Past reservation cannot be edited.";
+    public static final String MESSAGE_UNABLE_TO_EDIT_PAST_RESERVATION = "Unable to edit dates of past reservations\n"
+        + "You can edit other details of past reservations.";
 
 
     private final Index index;
     private final EditReservationDescriptor editReservationDescriptor;
+
 
     /**
      * @param index of the reservation in the filtered reservation list to edit
@@ -71,7 +74,6 @@ public class EditCommand extends Command {
     public EditCommand(Index index, EditReservationDescriptor editReservationDescriptor) {
         requireNonNull(index);
         requireNonNull(editReservationDescriptor);
-
         this.index = index;
         this.editReservationDescriptor = new EditReservationDescriptor(editReservationDescriptor);
     }
@@ -89,21 +91,20 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        String out = "";
         requireNonNull(model);
         List<Reservation> lastShownList = model.getFilteredReservationList();
-
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX);
         }
-
         Reservation reservationToEdit = lastShownList.get(index.getZeroBased());
         Reservation editedReservation = createEditedReservation(reservationToEdit, editReservationDescriptor);
-        String out = "";
+        if (!DateTime.isValidEditedDateTime(editedReservation.getDateTime(), reservationToEdit.getDateTime())) {
+            throw new CommandException(DateTime.MESSAGE_CONSTRAINTS);
+        }
         if (isDateTimeBeforeCurrentTime(reservationToEdit.getDateTime())) {
-//            throw new CommandException(MESSAGE_FUTURE_RESERVATION_REQUIRED);
             out = "Warning: You modified a past reservation!\n";
         }
-
         if (!reservationToEdit.isSameReservation(editedReservation) && model.hasReservation(editedReservation)) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_RESERVATION);
 
@@ -111,7 +112,8 @@ public class EditCommand extends Command {
 
         model.setReservation(reservationToEdit, editedReservation);
         model.updateFilteredReservationList(PREDICATE_SHOW_ALL_RESERVATIONS);
-        return new CommandResult(out + String.format(MESSAGE_EDIT_RESERVATION_SUCCESS, Messages.format(editedReservation)));
+        return new CommandResult(out + String.format(MESSAGE_EDIT_RESERVATION_SUCCESS,
+                Messages.format(editedReservation)));
     }
 
     /**

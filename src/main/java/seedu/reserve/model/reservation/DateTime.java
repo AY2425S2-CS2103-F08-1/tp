@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
+import seedu.reserve.logic.commands.EditCommand;
+import seedu.reserve.logic.commands.exceptions.CommandException;
 import seedu.reserve.logic.parser.exceptions.ParseException;
 
 /**
@@ -69,6 +71,41 @@ public class DateTime implements Comparable<DateTime> {
 
             LocalDateTime parsedDateTime = LocalDateTime.parse(test, FORMATTER);
             return isAfterCurrentTime(parsedDateTime) && isBeforeMaxBookingTime(parsedDateTime);
+        } catch (DateTimeParseException | ParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid date-time for editing.
+     * If the date is in the past, return false.
+     * Otherwise, return true.
+     */
+    public static boolean isValidEditedDateTime(DateTime editedDateTime, DateTime toEditDateTime)
+            throws CommandException {
+        try {
+            String toEditDateTimeStr = toEditDateTime.value.format(FORMATTER);
+            String editedDateTimeStr = editedDateTime.value.format(FORMATTER);
+
+            LocalDateTime toEditTimeParser = LocalDateTime.parse(toEditDateTimeStr, FORMATTER);
+            LocalDateTime editedDateTimeParser = LocalDateTime.parse(editedDateTimeStr, FORMATTER);
+
+
+            // If the date is before the current time return false
+            if (!isAfterCurrentTime(toEditTimeParser)) {
+                if (!editedDateTime.equals(toEditDateTime)) {
+                    throw new CommandException(EditCommand.MESSAGE_UNABLE_TO_EDIT_PAST_RESERVATION);
+                }
+                return true;
+            }
+            if (!isAfterCurrentTime(editedDateTimeParser)) {
+                return false;
+            }
+            if (!isHourlyTiming(editedDateTimeStr)) {
+                return false;
+            }
+            // Check the time constraint
+            return isBeforeMaxBookingTime(editedDateTimeParser);
         } catch (DateTimeParseException | ParseException e) {
             return false;
         }

@@ -21,6 +21,7 @@ import seedu.reserve.logic.commands.EditCommand;
 import seedu.reserve.logic.parser.exceptions.ParseException;
 import seedu.reserve.model.occasion.Occasion;
 
+
 /**
  * Parses input arguments and creates a new EditCommand object
  */
@@ -73,7 +74,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATE_TIME).isPresent()) {
             editReservationDescriptor
-                    .setDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATE_TIME).get()));
+                    .setDateTime(ParserUtil.parseEditedDateTime(argMultimap.getValue(PREFIX_DATE_TIME).get()));
         }
         parseOccasionsForEdit(argMultimap.getAllValues(PREFIX_OCCASION))
             .ifPresent(editReservationDescriptor::setOccasions);

@@ -201,7 +201,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RESERVATION, descriptor);
 
         // Assert that the command fails with the correct error message
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_FUTURE_RESERVATION_REQUIRED);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_UNABLE_TO_EDIT_PAST_RESERVATION);
     }
 
     @Test
@@ -212,7 +212,7 @@ public class EditCommandTest {
             .withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY)
             .withDiners(VALID_DINERS_AMY)
-            .withDateTime(LocalDateTime.now().plusDays(1).format(FORMATTER))
+            .withDateTime(LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.HOURS).format(FORMATTER))
             .withOccasions(VALID_OCCASION_BIRTHDAY)
             .build();
 
@@ -238,23 +238,6 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void execute_clearOccasionsFromPastReservation_failure() {
-        // Create a past reservation with an occasion
-        Reservation pastReservationWithOccasion = new ReservationBuilder()
-            .withDateTime("2020-01-01 1200") // Past date
-            .withOccasions(VALID_OCCASION_BIRTHDAY)
-            .build();
-
-        model.setReservation(model.getFilteredReservationList().get(0), pastReservationWithOccasion);
-
-        EditCommand.EditReservationDescriptor descriptor = new EditReservationDescriptorBuilder()
-            .withOccasions().build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESERVATION, descriptor);
-
-        // The command should fail because we can't edit past reservations
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_FUTURE_RESERVATION_REQUIRED);
-    }
 
     @Test
     public void equals() {
