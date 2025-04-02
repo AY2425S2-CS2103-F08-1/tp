@@ -179,6 +179,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseEditedDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEditedDateTime((String) null));
+    }
+
+    @Test
+    public void parseEditedDateTime_invalidValue_throwsParseException() {
+        assertThrows(IllegalArgumentException.class, () -> ParserUtil.parseEditedDateTime(INVALID_DATETIME));
+    }
+
+    @Test
+    public void parseEditedDateTime_validValueWithoutWhitespace_returnsDateTime() throws Exception {
+        DateTime expectedDateTime = new DateTime(VALID_DATETIME);
+        assertEquals(expectedDateTime, ParserUtil.parseEditedDateTime(VALID_DATETIME));
+    }
+
+    @Test
+    public void parseEditedDateTime_validValueWithWhitespace_returnsTrimmedDateTime() throws Exception {
+        String dateTimeWithWhitespace = WHITESPACE + VALID_DATETIME + WHITESPACE;
+        DateTime expectedDateTime = new DateTime(VALID_DATETIME);
+        assertEquals(expectedDateTime, ParserUtil.parseEditedDateTime(dateTimeWithWhitespace));
+    }
+
+    @Test
     public void parseDateTimeFilter_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTimeFilter(null));
     }
@@ -203,6 +226,7 @@ public class ParserUtilTest {
         DateTime expectedDateTime = ParserUtil.parseDateTimeFilter(dateTimeWithWhitespace);
         assertEquals(expectedDateTime, ParserUtil.parseDateTimeFilter(dateTimeWithWhitespace));
     }
+
 
     @Test
     public void parseOccasion_null_throwsNullPointerException() {

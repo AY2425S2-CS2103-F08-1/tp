@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.reserve.logic.commands.exceptions.CommandException;
 
 public class DateTimeTest {
 
@@ -25,6 +26,7 @@ public class DateTimeTest {
     private String formattedYesterdayDateTime;
     private String formattedTomorrowDateTime;
     private String formattedDayAfterDateTime;
+    private String formattedDayBeforeYesterdayDateTime;
 
     /**
      * Helper method to generate a formatted date string based on the current date and time.
@@ -63,6 +65,7 @@ public class DateTimeTest {
     @BeforeEach
     public void setUp() {
         formattedYesterdayDateTime = getFormattedDateTime(-1);
+        formattedDayBeforeYesterdayDateTime = getFormattedDateTime(-2);
         formattedTomorrowDateTime = getFormattedDateTime(1);
         formattedDayAfterDateTime = getFormattedDateTime(2);
     }
@@ -128,5 +131,22 @@ public class DateTimeTest {
         assertTrue(startDate.isBetween(startDate, endDate));
         assertTrue(endDate.isBetween(startDate, endDate));
     }
+
+    @Test
+    public void isValidEditedDateTime() throws CommandException {
+        // Past reservation: Can edit details but NOT the date-time
+        DateTime dayBeforeYesterdayDateTime = DateTime.fromFileString(formattedDayBeforeYesterdayDateTime);
+        DateTime yesterdayDateTime = DateTime.fromFileString(formattedYesterdayDateTime);
+        DateTime tomorrowDateTime = new DateTime(formattedTomorrowDateTime);
+
+        assertTrue(DateTime.isValidEditedDateTime(yesterdayDateTime, yesterdayDateTime));
+        assertThrows(CommandException.class, () -> DateTime.isValidEditedDateTime(dayBeforeYesterdayDateTime,
+                yesterdayDateTime));
+
+        // Future reservation: Can edit freely if constraints met
+        assertTrue(DateTime.isValidEditedDateTime(tomorrowDateTime, tomorrowDateTime));
+        assertFalse(DateTime.isValidEditedDateTime(yesterdayDateTime, tomorrowDateTime)); // Cannot move future to past
+    }
+
 
 }
