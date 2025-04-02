@@ -26,7 +26,9 @@ import seedu.reserve.model.reservation.Phone;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "The reservation index provided is invalid";
+    public static final String MESSAGE_NEGATIVE_INDEX =
+        "The reservation index must be a non-negative integer greater than 0!";
     private static final String CONFIRMATION_KEYWORD = "cfm";
     private static final int INDEX_POSITION = 0; // Index is expected at position 0
     private static final int CONFIRMATION_POSITION = 1; // "confirm" keyword is expect at position 1
@@ -182,6 +184,21 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code dateTime} is invalid.
      */
+    public static DateTime parseDateTimeFree(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!DateTime.isValidDateTime(trimmedDateTime)) {
+            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS_FREE);
+        }
+        return new DateTime(trimmedDateTime);
+    }
+
+    /**
+     * Parses a {@code String dateTime} into a {@code DateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateTime} is invalid.
+     */
     public static DateTime parseEditedDateTime(String editedDateTime) throws ParseException {
         requireNonNull(editedDateTime);
         String trimmedEditDateTime = editedDateTime.trim();
@@ -242,5 +259,18 @@ public class ParserUtil {
         boolean isConfirmed = trimmedArgs.equals(CONFIRMATION_KEYWORD);
 
         return isConfirmed;
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parsePrefIndex(String oneBasedIndex) throws ParseException {
+        String trimmedIndex = oneBasedIndex.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(MESSAGE_NEGATIVE_INDEX);
+        }
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 }

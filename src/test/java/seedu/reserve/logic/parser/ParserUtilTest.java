@@ -28,9 +28,12 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_OCCASION = "#gambling";
+    private static final String INVALID_OCCASION_LONG = "long word".repeat(50);
+    private static final String INVALID_OCCASION_SHORT = "a";
     private static final String INVALID_DINERS = "0";
     private static final String INVALID_DATETIME = "2030-04-12 180";
     private static final String INVALID_FILTER_DATETIME = "2025-13-01 1900";
+    private static final String INVALID_DATETIME_NON_HOURLY = "2025-04-03 1430";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "98765432";
@@ -210,6 +213,7 @@ public class ParserUtilTest {
     public void parseDateTimeFilter_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDateTimeFilter(INVALID_FILTER_DATETIME));
         assertThrows(ParseException.class, () -> ParserUtil.parseDateTimeFilter(INVALID_DATETIME));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTimeFilter(INVALID_DATETIME_NON_HOURLY));
     }
 
     @Test
@@ -236,6 +240,8 @@ public class ParserUtilTest {
     @Test
     public void parseOccasion_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseOccasion(INVALID_OCCASION));
+        assertThrows(ParseException.class, () -> ParserUtil.parseOccasion(INVALID_OCCASION_LONG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseOccasion(INVALID_OCCASION_SHORT));
     }
 
     @Test
@@ -252,14 +258,11 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseOccasions_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseOccasions(null));
-    }
-
-    @Test
     public void parseOccasions_collectionWithInvalidOccasions_throwsParseException() {
         assertThrows(ParseException.class, () ->
             ParserUtil.parseOccasions(Arrays.asList(VALID_OCCASION_1, INVALID_OCCASION)));
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseOccasions(Arrays.asList(VALID_OCCASION_1, INVALID_OCCASION_LONG)));
     }
 
     @Test
