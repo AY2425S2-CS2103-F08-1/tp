@@ -101,7 +101,7 @@ public class EditCommand extends Command {
         String out = "";
         if (isDateTimeBeforeCurrentTime(reservationToEdit.getDateTime())) {
 //            throw new CommandException(MESSAGE_FUTURE_RESERVATION_REQUIRED);
-            out = "Warning, you had edited a past reservation!!!\n";
+            out = "Warning: You modified a past reservation!\n";
         }
 
         if (!reservationToEdit.isSameReservation(editedReservation) && model.hasReservation(editedReservation)) {
