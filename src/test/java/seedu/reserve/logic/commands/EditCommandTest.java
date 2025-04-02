@@ -3,7 +3,6 @@ package seedu.reserve.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.reserve.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.reserve.logic.commands.CommandTestUtil.DESC_BOB;
@@ -37,7 +36,6 @@ import seedu.reserve.model.Model;
 import seedu.reserve.model.ModelManager;
 import seedu.reserve.model.ReserveMate;
 import seedu.reserve.model.UserPrefs;
-import seedu.reserve.model.reservation.DateTime;
 import seedu.reserve.model.reservation.Reservation;
 import seedu.reserve.testutil.EditReservationDescriptorBuilder;
 import seedu.reserve.testutil.ReservationBuilder;
@@ -206,7 +204,6 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_UNABLE_TO_EDIT_PAST_RESERVATION);
     }
 
-    
     @Test
     public void execute_editPastReservationName_success() {
         Reservation pastReservation = new ReservationBuilder().withDateTime("2022-01-01 1200").build();
