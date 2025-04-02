@@ -8,6 +8,7 @@ import static seedu.reserve.testutil.Assert.assertThrows;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -155,6 +156,9 @@ public class DateTimeTest {
         assertTrue(DateTime.isValidEditedDateTime(yesterdayDateTime, yesterdayDateTime));
         assertThrows(CommandException.class, () -> DateTime.isValidEditedDateTime(dayBeforeYesterdayDateTime,
                 yesterdayDateTime));
+
+        assertThrows(IllegalArgumentException.class, () -> DateTime
+                .isValidEditedDateTime(DateTime.fromFileString(INVALID_DATE_TIME_FORMAT_STR), yesterdayDateTime));
 
         // Future reservation: Can edit freely if constraints met
         assertTrue(DateTime.isValidEditedDateTime(tomorrowDateTime, tomorrowDateTime));

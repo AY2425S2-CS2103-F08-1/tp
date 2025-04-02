@@ -107,9 +107,7 @@ public class EditCommand extends Command {
         }
         if (!reservationToEdit.isSameReservation(editedReservation) && model.hasReservation(editedReservation)) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_RESERVATION);
-
         }
-
         model.setReservation(reservationToEdit, editedReservation);
         model.updateFilteredReservationList(PREDICATE_SHOW_ALL_RESERVATIONS);
         return new CommandResult(out + String.format(MESSAGE_EDIT_RESERVATION_SUCCESS,
