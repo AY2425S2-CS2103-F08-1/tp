@@ -24,7 +24,7 @@ This guide assumes you're comfortable using a computer and does not require any 
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103-F08-1/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your ReserveMate
+3. Copy the file to the folder you want to use as the _home folder_ for your ReserveMate.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar reservemate.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. <br>
@@ -175,7 +175,7 @@ The prefixes used in ReserveMate are universal across all commands.
 
 - Format: `YYYY-MM-DD HHmm`
 - Date must be:
-    - Within the next **60 days**, excluding the 60th day.
+    - Within the next **60 days**
     - Cannot be a past date-time
     - Time must be in hourly increments, ending with `00` (e.g., `1400`).
     - For the `free` command, `HHmm` is omitted.
