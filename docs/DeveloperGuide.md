@@ -1162,6 +1162,7 @@ directly** in the reservation information. This allows users to quickly see pref
 run an addition command. By incorporating **preferences and occasions**, reservations with similar names can be easily
 differentiated. <br>
 
+
 7. **Add `clear past` command to remove all past reservations:** <br> Current Issue: The app accumulates past 
 reservations over time, which may clutter the interface and degrade user experience, especially for frequent users. 
 Currently, there is no easy way to bulk-remove outdated entries. <br> Planned Enhancement: 
