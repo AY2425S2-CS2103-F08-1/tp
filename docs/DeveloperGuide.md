@@ -1161,3 +1161,11 @@ make it difficult to differentiate between them. <br>
 directly** in the reservation information. This allows users to quickly see preferences and occasions without having to
 run an addition command. By incorporating **preferences and occasions**, reservations with similar names can be easily
 differentiated. <br>
+
+7. **Add `clear past` command to remove all past reservations:** <br> Current Issue: The app accumulates past 
+reservations over time, which may clutter the interface and degrade user experience, especially for frequent users. 
+Currently, there is no easy way to bulk-remove outdated entries. <br> Planned Enhancement: 
+We will introduce a new command clear past that allows users to automatically remove all reservations 
+dated before today. This helps keep the app clean and focused on upcoming reservations. A confirmation prompt may be added to prevent accidental data loss.
+
+
