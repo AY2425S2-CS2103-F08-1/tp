@@ -324,7 +324,7 @@ The following sequence diagram shows how the delete command works:
 To prevent accidental deletions due to typing the wrong index, users are required to confirm their action by entering
 an additional 'cfm'. This extra step gives them time to double-check the index they’ve entered.
 
-### [Proposed] Undo/redo feature
+### \[Proposed\]  Undo/redo feature
 
 The proposed undo/redo mechanism is facilitated by `VersionedReserveMate`. It extends `ReserveMate` with an undo/redo
 history, stored internally as an `reserveMateStateList` and `currentStatePointer`. Additionally, it implements the
@@ -1003,7 +1003,7 @@ More information on usage:
       Expected: Saved preference for reservation: 3
 
    4. Testcase: `pref save 2`<br>
-      Expected: No preference is saved. Error details shown in the error message.
+      Expected: No preference is saved. Invalid command format for empty preference text. Error message displayed.
 
 2. Other incorrect commands to try
 
